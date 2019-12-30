@@ -28,28 +28,40 @@
         </div>
         <div class=" return_call">
           Return calls:
-          {{ range $breakpoint.ReturnCall }}
-          <input type="text" value="{{ . }}" name="breakpoint[{{ $name }}][return_call][]" />
-          <a href="/remove/">[remove]</a>
-          {{ end }}
-          <a href="/add/">[add]</a>
+          <ul>
+            {{ range $breakpoint.ReturnCall }}
+            <li>
+              <input type="text" value="{{ . }}" name="breakpoint[{{ $name }}][return_call][]" />
+              <a class="list_remove" href="#nogo">[remove]</a>
+            </li>
+            {{ end }}
+          </ul>
+          <a href="#nogo" xattr_with_name="breakpoint[{{ $name }}][return_call][]" class="list_add">[add]</a>
         </div>
       </div>
       <div class="pre_call">
         Pre call:
-        {{ range $breakpoint.PreCall }}
-        <input type="text" value="{{ . }}" name="breakpoint[{{ $name }}][pre_call][]" />
-        <a href="/remove/">[remove]</a>
-        {{ end }}
-        <a href="/add/">[add]</a>
+        <ul>
+          {{ range $breakpoint.PreCall }}
+          <li>
+            <input type="text" value="{{ . }}" name="breakpoint[{{ $name }}][pre_call][]" />
+            <a class="list_remove" href="#nogo">[remove]</a>
+          </li>
+          {{ end }}
+        </ul>
+        <a href="#nogo" xattr_with_name="breakpoint[{{ $name }}][pre_call][]" class="list_add">[add]</a>
       </div>
       <div class="post_call">
         Post call:
-        {{ range $breakpoint.PostCall }}
-        <input type="text" value="{{ . }}" name="breakpoint[{{ $name }}][post_call][]" />
-        <a href="/remove/">[remove]</a>
-        {{ end }}
-        <a href="/add/">[add]</a>
+        <ul>
+          {{ range $breakpoint.PostCall }}
+          <li>
+            <input type="text" value="{{ . }}" name="breakpoint[{{ $name }}][post_call][]" />
+            <a class="list_remove" href="#nogo">[remove]</a>
+          </li>
+          {{ end }}
+        </ul>
+        <a href="#nogo" xattr_with_name="breakpoint[{{ $name }}][post_call][]" class="list_add">[add]</a>
       </div>
     </div>
     {{end}}

@@ -1,5 +1,8 @@
-  {{if .DevMode}}
-    {{template "debug.html" .}}
-  {{end}}
-  </body>
+{{if .DevMode}}
+{{template "debug.html" .}}
+{{end}}
+
+<script src="/public/js/app.js"></script>
+</body>
+
 </html>
