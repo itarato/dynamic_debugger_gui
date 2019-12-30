@@ -13,19 +13,19 @@
       <h2>{{ $name }}</h2>
       <div class="enabled">
         Enabled:
-        <input type="checkbox" name="breakpoint[{{ $name }}][enabled]" {{ if $breakpoint.Enabled }}checked{{ end }} />
+        <input type="checkbox" name="breakpoints[{{ $name }}].Enabled" {{ if $breakpoint.Enabled }}checked{{ end }} />
       </div>
       <div class="return">
         <div class="return_options">
           <div>
-            Return value: <input type="radio" name="breakpoint[{{ $name }}][return_option]" value="return"
+            Return value: <input type="radio" name="breakpoints[{{ $name }}].ReturnOption" value="return"
               {{ if not $breakpoint.IsReturnCode  }}checked{{ end }} />
-            <input type="text" name="breakpoint[{{ $name }}][return]" value="{{ $breakpoint.Return }}" />
+            <input type="text" name="breakpoints[{{ $name }}].Return" value="{{ $breakpoint.Return }}" />
           </div>
           <div>
-            Return code: <input type="radio" name="breakpoint[{{ $name }}][return_option]" value="return_code"
+            Return code: <input type="radio" name="breakpoints[{{ $name }}].ReturnOption" value="return_code"
               {{ if $breakpoint.IsReturnCode  }}checked{{ end }} />
-            <input type="text" name="breakpoint[{{ $name }}][return_code]" value="{{ $breakpoint.ReturnCode }}" />
+            <input type="text" name="breakpoints[{{ $name }}].ReturnCode" value="{{ $breakpoint.ReturnCode }}" />
           </div>
         </div>
         <div class=" return_call">
@@ -33,12 +33,12 @@
           <ul>
             {{ range $breakpoint.ReturnCall }}
             <li>
-              <input type="text" value="{{ . }}" name="breakpoint[{{ $name }}][return_call][]" />
+              <input type="text" value="{{ . }}" name="breakpoints[{{ $name }}].ReturnCall[]" />
               <a class="list_remove" href="#nogo">[remove]</a>
             </li>
             {{ end }}
           </ul>
-          <a href="#nogo" xattr_with_name="breakpoint[{{ $name }}][return_call][]" class="list_add">[add]</a>
+          <a href="#nogo" xattr_with_name="breakpoints[{{ $name }}].ReturnCall[]" class="list_add">[add]</a>
         </div>
       </div>
       <div class="pre_call">
@@ -46,24 +46,24 @@
         <ul>
           {{ range $breakpoint.PreCall }}
           <li>
-            <input type="text" value="{{ . }}" name="breakpoint[{{ $name }}][pre_call][]" />
+            <input type="text" value="{{ . }}" name="breakpoints[{{ $name }}].PreCall[]" />
             <a class="list_remove" href="#nogo">[remove]</a>
           </li>
           {{ end }}
         </ul>
-        <a href="#nogo" xattr_with_name="breakpoint[{{ $name }}][pre_call][]" class="list_add">[add]</a>
+        <a href="#nogo" xattr_with_name="breakpoints[{{ $name }}].PreCall[]" class="list_add">[add]</a>
       </div>
       <div class="post_call">
         Post call:
         <ul>
           {{ range $breakpoint.PostCall }}
           <li>
-            <input type="text" value="{{ . }}" name="breakpoint[{{ $name }}][post_call][]" />
+            <input type="text" value="{{ . }}" name="breakpoints[{{ $name }}].PostCall[]" />
             <a class="list_remove" href="#nogo">[remove]</a>
           </li>
           {{ end }}
         </ul>
-        <a href="#nogo" xattr_with_name="breakpoint[{{ $name }}][post_call][]" class="list_add">[add]</a>
+        <a href="#nogo" xattr_with_name="breakpoints[{{ $name }}].PostCall[]" class="list_add">[add]</a>
       </div>
     </div>
     {{end}}
