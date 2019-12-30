@@ -1,0 +1,69 @@
+{{set . "title" "Home"}}
+{{template "header.html" .}}
+
+<h1>Dynamic Debugger Configuration</h1>
+
+
+<form method="POST">
+  <input type="submit" value="Save" />
+
+  <div id="config_main">
+    {{ range $name, $breakpoint := .config.Breakpoints }}
+    <div class="config">
+      <h2>{{ $name }}</h2>
+      <div class="enabled">
+        Enabled:
+        <input type="checkbox" name="breakpoint[{{ $name }}][enabled]" />
+      </div>
+      <div class="return">
+        <div class="return_options">
+          <div>
+            Return value: <input type="radio" name="breakpoint[{{ $name }}][return_option]" />
+            <input type="text" name="breakpoint[{{ $name }}][return]" />
+          </div>
+          <div>
+            Return code: <input type="radio" name="breakpoint[{{ $name }}][return_option]" />
+            <input type="text" name="breakpoint[{{ $name }}][return_code]" />
+          </div>
+        </div>
+        <div class=" return_call">
+          Return calls:
+          {{ range $breakpoint.ReturnCall }}
+          <input type="text" value="{{ . }}" name="breakpoint[{{ $name }}][return_call][]" />
+          <a href="/remove/">[remove]</a>
+          {{ end }}
+          <a href="/add/">[add]</a>
+        </div>
+      </div>
+      <div class="pre_call">
+        Pre call:
+        {{ range $breakpoint.PreCall }}
+        <input type="text" value="{{ . }}" name="breakpoint[{{ $name }}][pre_call][]" />
+        <a href="/remove/">[remove]</a>
+        {{ end }}
+        <a href="/add/">[add]</a>
+      </div>
+      <div class="post_call">
+        Post call:
+        {{ range $breakpoint.PostCall }}
+        <input type="text" value="{{ . }}" name="breakpoint[{{ $name }}][post_call][]" />
+        <a href="/remove/">[remove]</a>
+        {{ end }}
+        <a href="/add/">[add]</a>
+      </div>
+    </div>
+    {{end}}
+  </div>
+
+  <input type="submit" value="Save" />
+</form>
+
+<div class="container">
+  <div class="row">
+    <div class="span6">
+      {{template "flash.html" .}}
+    </div>
+  </div>
+</div>
+
+{{template "footer.html" .}}
