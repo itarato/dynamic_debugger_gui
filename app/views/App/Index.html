@@ -13,17 +13,19 @@
       <h2>{{ $name }}</h2>
       <div class="enabled">
         Enabled:
-        <input type="checkbox" name="breakpoint[{{ $name }}][enabled]" />
+        <input type="checkbox" name="breakpoint[{{ $name }}][enabled]" {{ if $breakpoint.Enabled }}checked{{ end }} />
       </div>
       <div class="return">
         <div class="return_options">
           <div>
-            Return value: <input type="radio" name="breakpoint[{{ $name }}][return_option]" />
-            <input type="text" name="breakpoint[{{ $name }}][return]" />
+            Return value: <input type="radio" name="breakpoint[{{ $name }}][return_option]" value="return"
+              {{ if not $breakpoint.IsReturnCode  }}checked{{ end }} />
+            <input type="text" name="breakpoint[{{ $name }}][return]" value="{{ $breakpoint.Return }}" />
           </div>
           <div>
-            Return code: <input type="radio" name="breakpoint[{{ $name }}][return_option]" />
-            <input type="text" name="breakpoint[{{ $name }}][return_code]" />
+            Return code: <input type="radio" name="breakpoint[{{ $name }}][return_option]" value="return_code"
+              {{ if $breakpoint.IsReturnCode  }}checked{{ end }} />
+            <input type="text" name="breakpoint[{{ $name }}][return_code]" value="{{ $breakpoint.ReturnCode }}" />
           </div>
         </div>
         <div class=" return_call">

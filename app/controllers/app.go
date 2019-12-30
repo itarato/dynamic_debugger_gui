@@ -16,6 +16,10 @@ type Breakpoint struct {
 	PostCall   []string `yaml:"post_call"`
 }
 
+func (b Breakpoint) IsReturnCode() bool {
+	return len(b.ReturnCode) > 0
+}
+
 type Config struct {
 	Breakpoints map[string]Breakpoint `yaml:"breakpoints"`
 }
