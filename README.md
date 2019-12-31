@@ -1,6 +1,8 @@
 Dynamic Ruby Debugger GUI
 -------------------------
 
+GUI for the [dynamic Ruby debugger](https://github.com/itarato/dynamic_debugger_tool).
+
 Prerequisites:
 
 - `go get github.com/revel/cmd/revel`
