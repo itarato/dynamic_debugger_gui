@@ -1,0 +1,61 @@
+*, html {
+    font-family: 'Fira Code', 'Courier New', Courier, monospace;
+    font-size: 14px;
+    color: #fff;
+    background-color: #000;
+}
+
+input[type=text] {
+    border: none;
+    background: #222;
+    margin-top: 2px;
+    margin-bottom: 2px;
+    color: khaki;
+}
+
+.config input[type=text] {
+    width: 80%;
+}
+
+ul {
+    padding: 0;
+    margin: 0;
+    margin-left: 16px;
+}
+
+.config {
+    border: 2px solid #246;
+    border-radius: 2px;
+    margin: 12px 0;
+}
+
+.config_content {
+    padding: 4px 12px;
+}
+
+.config h2 {
+    background-color: #246;
+    margin: 0;
+    padding: 0px 8px 2px;
+}
+
+.config h2 a {
+    display: inline;
+    float: right;
+}
+
+label {
+    font-weight: bold;
+}
+
+a {
+    color: red;
+    text-decoration: none;
+    background-color: transparent;
+}
+
+button, input[type=submit] {
+    border: none;
+    background-color: green;
+    font-weight: bold;
+}
