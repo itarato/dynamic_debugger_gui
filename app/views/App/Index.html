@@ -1,70 +1,68 @@
-{{set . "title" "Home"}}
+{{set . "title" "Dynamic Debugger Configuration"}}
 {{template "header.html" .}}
 
-<h1>Dynamic Debugger Configuration</h1>
-
 <form method="POST">
-  <input type="submit" value="Save" />
-
   <div id="config_main">
     {{ range $name, $breakpoint := .config.Breakpoints }}
     <div class="config">
-      <h2>{{ $name }}</h2>
-      <div class="enabled">
-        Enabled:
+      <h2>
         <input type="checkbox" name="breakpoints[{{ $name }}].Enabled" {{ if $breakpoint.Enabled }}checked{{ end }} />
-      </div>
-      <div class="return">
-        <div class="return_options">
-          <div>
-            Return value: <input type="radio" name="breakpoints[{{ $name }}].ReturnOption" value="return"
-              {{ if not $breakpoint.IsReturnCode  }}checked{{ end }} />
-            <input type="text" name="breakpoints[{{ $name }}].Return" value="{{ $breakpoint.Return }}" />
+        {{ $name }}
+        <a href="#nogo" class="breakpoint_remove">⛔</a>
+      </h2>
+      <div class="config_content">
+        <div class="return">
+          <div class="return_options">
+            <div>
+              <label>Return value</label>
+              <input type="radio" name="breakpoints[{{ $name }}].ReturnOption" value="return"
+                {{ if not $breakpoint.IsReturnCode  }}checked{{ end }} />
+              <input type="text" name="breakpoints[{{ $name }}].Return" value="{{ $breakpoint.Return }}" />
+            </div>
+            <div>
+              <label>Return code</label> <input type="radio" name="breakpoints[{{ $name }}].ReturnOption"
+                value="return_code" {{ if $breakpoint.IsReturnCode  }}checked{{ end }} />
+              <input type="text" name="breakpoints[{{ $name }}].ReturnCode" value="{{ $breakpoint.ReturnCode }}" />
+            </div>
           </div>
-          <div>
-            Return code: <input type="radio" name="breakpoints[{{ $name }}].ReturnOption" value="return_code"
-              {{ if $breakpoint.IsReturnCode  }}checked{{ end }} />
-            <input type="text" name="breakpoints[{{ $name }}].ReturnCode" value="{{ $breakpoint.ReturnCode }}" />
+          <div class=" return_call">
+            <label>Return calls</label>
+            <a href="#nogo" xattr_with_name="breakpoints[{{ $name }}].ReturnCall[]" class="list_add">[+]</a>
+            <ul>
+              {{ range $breakpoint.ReturnCall }}
+              <li>
+                <input type="text" value="{{ . }}" name="breakpoints[{{ $name }}].ReturnCall[]" />
+                <a class="list_remove" href="#nogo">⛔</a>
+              </li>
+              {{ end }}
+            </ul>
           </div>
         </div>
-        <div class=" return_call">
-          Return calls:
+        <div class="pre_call">
+          <label>Pre call:</label>
+          <a href="#nogo" xattr_with_name="breakpoints[{{ $name }}].PreCall[]" class="list_add">[+]</a>
           <ul>
-            {{ range $breakpoint.ReturnCall }}
+            {{ range $breakpoint.PreCall }}
             <li>
-              <input type="text" value="{{ . }}" name="breakpoints[{{ $name }}].ReturnCall[]" />
-              <a class="list_remove" href="#nogo">[remove]</a>
+              <input type="text" value="{{ . }}" name="breakpoints[{{ $name }}].PreCall[]" />
+              <a class="list_remove" href="#nogo">⛔</a>
             </li>
             {{ end }}
           </ul>
-          <a href="#nogo" xattr_with_name="breakpoints[{{ $name }}].ReturnCall[]" class="list_add">[add]</a>
+        </div>
+        <div class="post_call">
+          <label>Post call</label>
+          <a href="#nogo" xattr_with_name="breakpoints[{{ $name }}].PostCall[]" class="list_add">[+]</a>
+          <ul>
+            {{ range $breakpoint.PostCall }}
+            <li>
+              <input type="text" value="{{ . }}" name="breakpoints[{{ $name }}].PostCall[]" />
+              <a class="list_remove" href="#nogo">⛔</a>
+            </li>
+            {{ end }}
+          </ul>
         </div>
       </div>
-      <div class="pre_call">
-        Pre call:
-        <ul>
-          {{ range $breakpoint.PreCall }}
-          <li>
-            <input type="text" value="{{ . }}" name="breakpoints[{{ $name }}].PreCall[]" />
-            <a class="list_remove" href="#nogo">[remove]</a>
-          </li>
-          {{ end }}
-        </ul>
-        <a href="#nogo" xattr_with_name="breakpoints[{{ $name }}].PreCall[]" class="list_add">[add]</a>
-      </div>
-      <div class="post_call">
-        Post call:
-        <ul>
-          {{ range $breakpoint.PostCall }}
-          <li>
-            <input type="text" value="{{ . }}" name="breakpoints[{{ $name }}].PostCall[]" />
-            <a class="list_remove" href="#nogo">[remove]</a>
-          </li>
-          {{ end }}
-        </ul>
-        <a href="#nogo" xattr_with_name="breakpoints[{{ $name }}].PostCall[]" class="list_add">[add]</a>
-      </div>
-      <a href="#nogo" class="breakpoint_remove">[remove]</a>
     </div>
     {{end}}
   </div>
@@ -72,12 +70,11 @@
   <input type="submit" value="Save" />
 </form>
 
-<hr />
+<br />
 
 <form method="POST" action="/add">
-  <h2>Add breakpoint:</h2>
   <input type="text" value="" name="name" />
-  <input type="submit" value="Add" />
+  <input type="submit" value="Add breakpoint" />
 </form>
 
 

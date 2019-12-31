@@ -1,8 +1,8 @@
 const app = (() => {
     function applyDocBehavior(target) {
-        jQuery('.list_remove', target).on('click', onListItemRemove);
-        jQuery('.list_add', target).on('click', onListItemAdd);
-        jQuery('.breakpoint_remove', target).on('click', onBreakpointRemove);
+        jQuery('.list_remove', target).click(onListItemRemove);
+        jQuery('.list_add', target).click(onListItemAdd);
+        jQuery('.breakpoint_remove', target).click(onBreakpointRemove);
     }
 
     function onAppInit() {
@@ -10,7 +10,7 @@ const app = (() => {
     }
 
     function onListItemRemove() {
-        jQuery(this).parent('li').remove();
+        jQuery(this).parents('li').remove();
     }
 
     function onListItemAdd() {
@@ -24,14 +24,14 @@ const app = (() => {
     }
 
     function onBreakpointRemove() {
-        jQuery(this).parent('.config').remove();
+        jQuery(this).parents('.config').remove();
     }
 
     function newListItemString(name) {
         return `
             <li>
                 <input type="text" name="${name}" />
-                <a class="list_remove" href="#nogo">[remove]</a>
+                <a class="list_remove" href="#nogo">⛔</a>
             </li>
         `
     }
