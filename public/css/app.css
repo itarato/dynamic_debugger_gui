@@ -36,12 +36,15 @@ ul {
 .config h2 {
     background-color: #246;
     margin: 0;
-    padding: 0px 8px 2px;
+    padding: 2px 2px 4px 8px;
+    vertical-align: bottom;
 }
 
-.config h2 a {
+.config h2 a, .config h2 input {
     display: inline;
     float: right;
+    margin-top: 0px;
+    margin-left: 16px;
 }
 
 label {
@@ -52,6 +55,7 @@ a {
     color: red;
     text-decoration: none;
     background-color: transparent;
+    font-weight: bold;
 }
 
 button, input[type=submit] {

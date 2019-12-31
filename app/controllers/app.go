@@ -139,7 +139,9 @@ func (c App) AddBreakpoint() revel.Result {
 	if err != nil {
 		c.Log.Error("Config cannot be loaded.")
 	} else {
-		config.Breakpoints[name] = Breakpoint{}
+		new_breakpoint := Breakpoint{}
+		new_breakpoint.Enabled = true
+		config.Breakpoints[name] = new_breakpoint
 		update_err := UpdateConfig(config)
 		if update_err != nil {
 			c.Log.Error("Config cannot be updated")

@@ -6,9 +6,9 @@
     {{ range $name, $breakpoint := .config.Breakpoints }}
     <div class="config">
       <h2>
-        <input type="checkbox" name="breakpoints[{{ $name }}].Enabled" {{ if $breakpoint.Enabled }}checked{{ end }} />
-        {{ $name }}
+        -= {{ $name }} =-
         <a href="#nogo" class="breakpoint_remove">⛔</a>
+        <input type="checkbox" name="breakpoints[{{ $name }}].Enabled" {{ if $breakpoint.Enabled }}checked{{ end }} />
       </h2>
       <div class="config_content">
         <div class="return">
