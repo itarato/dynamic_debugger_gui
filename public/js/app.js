@@ -1,7 +1,8 @@
 const app = (() => {
     function applyDocBehavior(target) {
-        jQuery('.list_remove', target).on('click', app.onListItemRemove);
-        jQuery('.list_add', target).on('click', app.onListItemAdd);
+        jQuery('.list_remove', target).on('click', onListItemRemove);
+        jQuery('.list_add', target).on('click', onListItemAdd);
+        jQuery('.breakpoint_remove', target).on('click', onBreakpointRemove);
     }
 
     function onAppInit() {
@@ -22,6 +23,10 @@ const app = (() => {
         list.append(newItem);
     }
 
+    function onBreakpointRemove() {
+        jQuery(this).parent('.config').remove();
+    }
+
     function newListItemString(name) {
         return `
             <li>
@@ -31,11 +36,7 @@ const app = (() => {
         `
     }
 
-    return {
-        onAppInit: onAppInit,
-        onListItemRemove: onListItemRemove,
-        onListItemAdd: onListItemAdd
-    };
+    return { onAppInit: onAppInit };
 })();
 
 jQuery(app.onAppInit);

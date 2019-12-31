@@ -50,22 +50,27 @@ type ParamBreakpoint struct {
 	PostCall     []string
 }
 
-func (c App) Index() revel.Result {
+func LoadConfig() (Config, error) {
+	config := Config{}
+
 	config_file_path, file_name_err := ConfigFilePath()
 	if file_name_err != nil {
-		panic("Cannot generate config file path")
+		return config, file_name_err
 	}
 
 	yaml_file, err := ioutil.ReadFile(config_file_path)
 	if err != nil {
-		c.Log.Error("Cannot read config file.")
+		return config, err
 	}
 
-	config := Config{}
 	err_yaml_load := yaml.Unmarshal(yaml_file, &config)
+	return config, err_yaml_load
+}
 
-	if err_yaml_load != nil {
-		c.Log.Error("YAML cannot be unamrshalled.")
+func (c App) Index() revel.Result {
+	config, err := LoadConfig()
+	if err != nil {
+		c.Log.Error("Config cannot be loaded")
 	}
 
 	c.ViewArgs["config"] = config
@@ -94,6 +99,10 @@ func UpdateConfigFromParam(breakpoints_raw map[string]ParamBreakpoint) error {
 		config.Breakpoints[name] = breakpoint
 	}
 
+	return UpdateConfig(config)
+}
+
+func UpdateConfig(config Config) error {
 	yaml_out, yaml_err := yaml.Marshal(&config)
 	if yaml_err != nil {
 		return yaml_err
@@ -103,7 +112,7 @@ func UpdateConfigFromParam(breakpoints_raw map[string]ParamBreakpoint) error {
 	if file_name_err != nil {
 		panic("Cannot generate config file path")
 	}
-	file_err := ioutil.WriteFile(config_file_path, yaml_out, 0664)
+	file_err := ioutil.WriteFile(config_file_path, yaml_out, 0644)
 	if file_err != nil {
 		return file_err
 	}
@@ -118,6 +127,23 @@ func (c App) Update() revel.Result {
 	update_err := UpdateConfigFromParam(breakpoints)
 	if update_err != nil {
 		c.Log.Error("Cannot update config file.")
+	}
+
+	return c.Redirect(App.Index)
+}
+
+func (c App) AddBreakpoint() revel.Result {
+	name := c.Params.Form.Get("name")
+
+	config, err := LoadConfig()
+	if err != nil {
+		c.Log.Error("Config cannot be loaded.")
+	} else {
+		config.Breakpoints[name] = Breakpoint{}
+		update_err := UpdateConfig(config)
+		if update_err != nil {
+			c.Log.Error("Config cannot be updated")
+		}
 	}
 
 	return c.Redirect(App.Index)

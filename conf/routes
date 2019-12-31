@@ -9,6 +9,7 @@ module:testrunner
 
 GET     /                                       App.Index
 POST    /                                       App.Update
+POST    /add                                    App.AddBreakpoint
 
 # Ignore favicon requests
 GET     /favicon.ico                            404

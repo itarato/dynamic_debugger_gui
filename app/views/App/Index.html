@@ -3,7 +3,6 @@
 
 <h1>Dynamic Debugger Configuration</h1>
 
-
 <form method="POST">
   <input type="submit" value="Save" />
 
@@ -65,12 +64,22 @@
         </ul>
         <a href="#nogo" xattr_with_name="breakpoints[{{ $name }}].PostCall[]" class="list_add">[add]</a>
       </div>
+      <a href="#nogo" class="breakpoint_remove">[remove]</a>
     </div>
     {{end}}
   </div>
 
   <input type="submit" value="Save" />
 </form>
+
+<hr />
+
+<form method="POST" action="/add">
+  <h2>Add breakpoint:</h2>
+  <input type="text" value="" name="name" />
+  <input type="submit" value="Add" />
+</form>
+
 
 <div class="container">
   <div class="row">
